@@ -1,0 +1,59 @@
+<template>
+    <section id="nav-bar">
+        <nav class="navbar navbar-expand-lg navbar-light bg-white text-white font-weight-bold">
+            <a class="navbar-brand text-uppercase" href="/" style="font-size: 30px">
+                URLShort
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="navbar-nav ms-auto">
+                    <template v-if="user === 'null'">
+                        <li class="nav-item">
+                            <a class="nav-link" href="login">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="register">Register</a>
+                        </li>
+                     </template>
+                    <template v-else>
+                        <li class="nav-item dropdown">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            {{ user.name }}
+                        </a>
+
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="dashboard">
+                                Dashboard
+                            </a>
+                            <a class="dropdown-item" href="" @click="logout">
+                                Logout
+                            </a>
+                        </div>
+                    </li>
+                    </template>
+                </div>
+            </div>
+        </nav>
+    </section>
+</template>
+
+<script>
+    export default {
+        props:['user'],
+        mounted() {
+            console.log(this.user, 'ussss')
+        },
+        methods: {
+            logout(){
+                axios.post('logout',{}).then((res) => {
+                    location.href = '/vue/lara-url-short/public/'
+                }).catch((e) => {
+
+                })
+            }
+        }
+    }
+</script>
